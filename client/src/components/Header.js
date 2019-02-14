@@ -28,7 +28,8 @@ class Header extends Component {
   }
 
   render() {
-    const display = this.props.authenticated && this.props.user.name;
+    const display =
+      this.props.authenticated && this.props.user && this.props.user.name;
     return (
       <nav className="blue">
         <div className="nav-wrapper">
