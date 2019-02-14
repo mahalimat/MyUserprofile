@@ -4,8 +4,7 @@ import { connect } from "react-redux";
 
 class Header extends Component {
   renderLinks() {
-    console.log("props at Header:", this.props);
-    if (this.props.authenticated) {
+    if (this.props.authenticated & this.props.signInUser) {
       return (
         <div>
           <li>
@@ -28,8 +27,15 @@ class Header extends Component {
   }
 
   render() {
-    const display =
-      this.props.authenticated && this.props.user && this.props.user.name;
+    const { signInUser, user } = this.props;
+    let name;
+
+    if (user) {
+      name = user.name;
+    } else if (signInUser) {
+      name = signInUser.name;
+    }
+
     return (
       <nav className="blue">
         <div className="nav-wrapper">
@@ -37,13 +43,13 @@ class Header extends Component {
             <li>
               <Link to="/">Home</Link>
             </li>
-            {display && (
+            {name && (
               <>
                 <li>
-                  <Link to="profile">{this.props.user.name}'s profile</Link>
+                  <Link to="/profile">{name}'s profile</Link>
                 </li>
                 <li>
-                  <Link to="users">Users</Link>
+                  <Link to="/users">Users</Link>
                 </li>
               </>
             )}
@@ -56,7 +62,11 @@ class Header extends Component {
 }
 
 function mapStateToProps(state) {
-  return { authenticated: state.auth.authenticated, user: state.auth.user };
+  return {
+    authenticated: state.auth.authenticated,
+    signInUser: state.auth.user,
+    user: state.users.user
+  };
 }
 
 export default connect(mapStateToProps)(Header);

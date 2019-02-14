@@ -21,6 +21,7 @@ class App extends Component {
             <Route path="/signout" component={Signout} />
             <Route path="/signin" component={Signin} />
             <Route path="/users" component={Users} />
+            <Route exact path="/user/:userId" component={Profile} />
           </div>
         </BrowserRouter>
       </div>

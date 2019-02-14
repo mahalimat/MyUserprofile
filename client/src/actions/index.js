@@ -1,5 +1,5 @@
 import axios from "axios";
-import { AUTH_USER, AUTH_ERROR, FETCH_USERS } from "./types";
+import { AUTH_USER, AUTH_ERROR, FETCH_USERS, FETCH_USER } from "./types";
 
 export const signup = (formProps, callback) => async dispatch => {
   try {
@@ -36,12 +36,35 @@ export const signout = callback => async dispatch => {
   callback();
 };
 
+export const isAuthenticated = () => {
+  if (typeof window == "undefined") {
+    return false;
+  }
+
+  if (localStorage.getItem("jwt")) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
 export const fetchUsers = () => async dispatch => {
   try {
     const response = await axios.get("/api/users");
     console.log("response:", response.data);
 
     dispatch({ type: FETCH_USERS, payload: response.data });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const fetchUser = id => async dispatch => {
+  try {
+    const response = await axios.get(`/api/users/${id}`);
+    console.log("response:", response.data);
+
+    dispatch({ type: FETCH_USER, payload: response.data });
   } catch (err) {
     console.log(err);
   }

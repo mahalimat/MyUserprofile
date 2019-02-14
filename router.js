@@ -11,9 +11,12 @@ module.exports = function(app) {
   app.post("/api/signup", Authentication.signup);
 
   app.get("/api/users", async (req, res) => {
-    console.log("HIIIIIIIIIIIIIIIIIIIIIIIIIII");
     const users = await User.find({});
-    console.log("users:", users);
     res.send(users);
+  });
+
+  app.get("/api/users/:id", async (req, res) => {
+    const user = await User.findById(req.params.id);
+    res.send(user);
   });
 };

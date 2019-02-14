@@ -11,11 +11,11 @@ class Users extends Component {
   renderAdmin = user => {
     return (
       <div className="card-action">
-        <Link to="/" className="ui button primary">
-          Edit
-        </Link>
-        <Link to="/" className="ui button negative">
-          Delete
+        <Link
+          to={`/user/${user._id}`}
+          className="btn btn-raised btn-primary btn-sm"
+        >
+          View Profile
         </Link>
       </div>
     );
@@ -47,7 +47,7 @@ class Users extends Component {
 }
 
 function mapStateToProps(state) {
-  return { users: state.users };
+  return { users: state.users.users };
 }
 
 export default connect(
