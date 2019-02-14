@@ -4,11 +4,13 @@ import { connect } from "react-redux";
 
 class Header extends Component {
   renderLinks() {
+    console.log("props at Header:", this.props);
     if (this.props.authenticated) {
       return (
         <div>
-          <Link to="/signout">Sign Out</Link>
-          <Link to="/feature">Feature</Link>
+          <li>
+            <Link to="/signout">Sign Out</Link>
+          </li>
         </div>
       );
     } else {
@@ -26,11 +28,24 @@ class Header extends Component {
   }
 
   render() {
+    const display = this.props.authenticated && this.props.user.name;
     return (
       <nav className="blue">
         <div className="nav-wrapper">
           <ul className="left">
-            <Link to="/">User Profile</Link>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            {display && (
+              <>
+                <li>
+                  <Link to="profile">{this.props.user.name}'s profile</Link>
+                </li>
+                <li>
+                  <Link to="users">Users</Link>
+                </li>
+              </>
+            )}
           </ul>
           <ul className="right">{this.renderLinks()}</ul>
         </div>
@@ -40,7 +55,7 @@ class Header extends Component {
 }
 
 function mapStateToProps(state) {
-  return { authenticated: state.auth.authenticated };
+  return { authenticated: state.auth.authenticated, user: state.auth.user };
 }
 
 export default connect(mapStateToProps)(Header);

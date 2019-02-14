@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import Header from "./Header";
-import Welcome from "./Welcome";
+import Home from "./Home";
 import Signup from "./auth/Signup";
-import Feature from "./Feature";
+import Profile from "./Profile";
 import Signout from "./auth/Signout";
 import Signin from "./auth/Signin";
+import Users from "./user/Users";
 
 class App extends Component {
   render() {
@@ -14,11 +15,12 @@ class App extends Component {
         <BrowserRouter>
           <div>
             <Header />
-            <Route path="/" exact component={Welcome} />
+            <Route path="/" exact component={Home} />
             <Route path="/signup" component={Signup} />
-            <Route path="/feature" component={Feature} />
+            <Route path="/profile" component={Profile} />
             <Route path="/signout" component={Signout} />
             <Route path="/signin" component={Signin} />
+            <Route path="/users" component={Users} />
           </div>
         </BrowserRouter>
       </div>
